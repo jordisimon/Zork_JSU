@@ -36,20 +36,25 @@ void Game::Run()
 		string input;
 		getline(cin, input);
 
-		m_player->ParseCommand(input);
+		playerQuit = m_player->ParseCommand(input);
 
-		playerWon = true;
+		//playerWon = true;
 	}
 
 	if (playerWon)
 	{
 		cout << "Congratulations, you are ready to scare your neighborhood!" << endl;
 		cout << "Your grandma is dead, by the way." << endl;
-		cout << "Type anything to exit" << endl;
-
-		string input;
-		cin >> input;
 	}
+	else //player quit
+	{
+		cout << "Are you giving up? So laaaaame." << endl;
+	}
+
+	cout << "Type anything to exit" << endl;
+
+	string input;
+	cin >> input;
 }
 
 void Game::Finalize()

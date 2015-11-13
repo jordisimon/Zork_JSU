@@ -14,5 +14,5 @@ public:
 		Character(name, description), m_currentRoom{ currentRoom }
 	{}
 
-	void ParseCommand(const std::string& playerInput);
+	bool ParseCommand(const std::string& playerInput);
 };

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <iostream>
 #include "Room.h"
 #include "Exit.h"
 #include "Item.h"
@@ -79,8 +78,9 @@ Item* Room::RemoveItem(const std::string & itemName)
 	{
 		if ((*iter)->GetName() == itemName)
 		{
+			Item* result = *iter;
 			m_items.erase(iter);
-			return *iter;
+			return result;
 		}
 	}
 

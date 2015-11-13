@@ -1,9 +1,19 @@
 #include "stdafx.h"
-#include <iostream>
 #include <sstream>
 #include "Game.h"
 #include "Exit.h"
 #include "Item.h"
+
+#include "CommandGoNorth.h"
+#include "CommandGoSouth.h"
+#include "CommandGoEast.h"
+#include "CommandGoWest.h"
+#include "CommandGoUp.h"
+#include "CommandGoDown.h"
+#include "CommandLook.h"
+#include "CommandExamine.h"
+#include "CommandPick.h"
+#include "CommandDrop.h"
 
 using namespace std;
 
@@ -19,6 +29,46 @@ void Game::WelcomePlayer() const
 {
 	cout << "Welcome to Halloween eve game" << endl;
 	cout << "You must disguise yourself as terrifying as possible before you can go and get candies." << endl << endl;
+}
+
+bool Game::ParseCommand(const std::string & playerInput) const
+{
+	vector<string> commands;
+
+	//move sentence to vector
+	istringstream command{ playerInput };
+	while (command)
+	{
+		string sub;
+		command >> sub;
+		if (!sub.empty())
+		{
+			commands.push_back(sub);
+		}
+	}
+
+	if (commands.size() > 0)
+	{
+		string word = commands[0];
+
+		//Special case: quit
+		if (word == "q" || word == "Q" || word == "quit")
+		{
+			return true;
+		}
+
+		CommandsMap::const_iterator command = m_commands.find(word);
+		if (command != m_commands.end())
+		{
+			command->second->Execute(commands);
+		}
+		else
+		{
+			cout << "What the hell did you just say? Do you speak my language?" << endl << endl;
+		}
+	}
+
+	return false;
 }
 
 void Game::CheckPlayerWon()
@@ -97,11 +147,45 @@ void Game::Initialize()
 	m_bathroom->AddItem(m_showerCurtain);
 
 	m_player = new Player("You", "This is you! A child, a hero, a monster, an explorer, a crusader.", m_playersRoom);
+
+	//Create commands
+	ManageNewCommand(new CommandGoNorth(m_player), "n N north");
+	ManageNewCommand(new CommandGoSouth(m_player), "s S south");
+	ManageNewCommand(new CommandGoEast(m_player), "e E east");
+	ManageNewCommand(new CommandGoWest(m_player), "w W west");
+	ManageNewCommand(new CommandGoUp(m_player), "u U up");
+	ManageNewCommand(new CommandGoDown(m_player), "d D down");
+	ManageNewCommand(new CommandLook(m_player), "l L look");
+	ManageNewCommand(new CommandExamine(m_player), "ex EX examine in IN inspect");
+	ManageNewCommand(new CommandPick(m_player), "p P pick t T take");
+	ManageNewCommand(new CommandDrop(m_player), "dr DR drop");
+}
+
+void Game::ManageNewCommand(Command* command, const string& words)
+{
+	m_commandVector.push_back(command);
+
+	//move sentence to vector
+	istringstream isWords{ words };
+	while (isWords)
+	{
+		string sub;
+		isWords >> sub;
+		if (!sub.empty())
+		{
+			m_commands[sub] = command;
+		}
+	}
 }
 
 void Game::Finalize()
 {
 	delete(m_player);
+
+	for (auto& command : m_commandVector)
+	{
+		delete(command);
+	}
 
 	for (auto& room : m_rooms)
 	{
@@ -118,14 +202,14 @@ void Game::Run()
 {
 
 	WelcomePlayer();
-	m_player->ParseCommand("l");
+	m_player->Look();
 
 	while (!playerWon && !playerQuit)
 	{
 		string input;
 		getline(cin, input);
 
-		playerQuit = m_player->ParseCommand(input);
+		playerQuit = ParseCommand(input);
 
 		CheckPlayerWon();
 	}

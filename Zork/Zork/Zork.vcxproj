@@ -146,6 +146,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandDrop.h" />
+    <ClInclude Include="CommandExamine.h" />
+    <ClInclude Include="CommandGoDown.h" />
+    <ClInclude Include="CommandGoEast.h" />
+    <ClInclude Include="CommandGoNorth.h" />
+    <ClInclude Include="CommandGoSouth.h" />
+    <ClInclude Include="CommandGoUp.h" />
+    <ClInclude Include="CommandGoWest.h" />
+    <ClInclude Include="CommandLook.h" />
+    <ClInclude Include="CommandPick.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Game.h" />
@@ -156,6 +167,16 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandDrop.cpp" />
+    <ClCompile Include="CommandExamine.cpp" />
+    <ClCompile Include="CommandGoDown.cpp" />
+    <ClCompile Include="CommandGoEast.cpp" />
+    <ClCompile Include="CommandGoNorth.cpp" />
+    <ClCompile Include="CommandGoSouth.cpp" />
+    <ClCompile Include="CommandGoUp.cpp" />
+    <ClCompile Include="CommandGoWest.cpp" />
+    <ClCompile Include="CommandLook.cpp" />
+    <ClCompile Include="CommandPick.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />

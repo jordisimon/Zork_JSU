@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Room.h"
 #include "Player.h"
 
@@ -11,22 +13,8 @@ private:
 
 	Player* m_player;
 
-	//1st floor rooms
-	Room* m_playersRoom;
-	Room* m_upperHall;
-	Room* m_parentsRoom;
-	Room* m_bathroom;
-
-	//Main floor rooms
-	Room* m_mainHall;
-	Room* m_livingRoom;
-	Room* m_kitchen;
-	Room* m_garage;
-	Room* m_mainYard;
-	Room* m_backYard;
-
-	//Basement rooms
-	Room* m_basement;
+	std::vector<Room*> m_rooms;
+	std::vector<Item*> m_items;
 
 	void WelcomePlayer() const;
 	void CheckPlayerWon();

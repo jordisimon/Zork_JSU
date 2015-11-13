@@ -1,10 +1,12 @@
 #include "stdafx.h"
+#include <iostream>
 #include <sstream>
 #include <vector>
-#include "Player.h"
-#include "Room.h"
 
-#include <iostream>
+#include "Player.h"
+#include "Item.h"
+
+
 
 using namespace std;
 
@@ -29,6 +31,35 @@ void Player::Move(Room::Directions direction)
 	{
 		m_currentRoom = nextRoom;
 		m_currentRoom->Describe();
+	}
+}
+
+void Player::Examine(const std::string& itemName) const
+{
+	bool found = false;
+	//first we search item in inventory
+	for (auto& item : m_inventory)
+	{
+		if (item->GetName() == itemName)
+		{
+			cout << item->GetDescription() << endl << endl;
+			found = true;
+		}
+	}
+	//if not found, search item in room
+	if (!found)
+	{
+		Item* item = m_currentRoom->GetItem(itemName);
+		if (item != nullptr)
+		{
+			cout << item->GetDescription() << endl << endl;
+			found = true;
+		}
+	}
+
+	if (!found)
+	{
+		cout << "Mmm... I can not find any item with this name." << endl << endl;
 	}
 }
 
@@ -92,6 +123,23 @@ bool Player::ParseCommand(const string& playerInput)
 		else if (word == "d" || word == "D" || word == "down")
 		{
 			Move(Room::Directions::Down);
+		}
+		//Examine
+		else if (word == "examine")
+		{
+			if (commands.size() > 1)
+			{
+				Examine(commands[1]);
+			}
+			else
+			{
+				cout << "Examine what?" << endl << endl;
+			}
+		}
+		//Pick
+		else if (word == "pick" || word == "take")
+		{
+
 		}
 		//Non valid command
 		else

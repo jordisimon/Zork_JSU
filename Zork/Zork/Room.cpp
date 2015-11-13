@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Room.h"
 #include "Exit.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -11,6 +12,21 @@ Room::~Room()
 	{
 		if (m_exits[i] != nullptr)
 			delete (m_exits[i]);
+	}
+}
+
+void Room::Describe() const
+{
+	Entity::Describe();
+
+	if (m_items.size() > 0)
+	{
+		cout << "You also can see " << endl;
+		for (auto& item : m_items)
+		{
+			cout << item->GetName() << endl;
+		}
+		cout << endl;
 	}
 }
 
@@ -34,6 +50,38 @@ Room* Room::GetRoom(Directions direction) const
 	else
 	{
 		return exit->GetDestinationRoom();
+	}
+
+	return nullptr;
+}
+
+void Room::AddItem(Item * item)
+{
+	m_items.push_back(item);
+}
+
+Item * Room::GetItem(const std::string & itemName) const
+{
+	for (vector<Item*>::const_iterator iter = m_items.cbegin(); iter != m_items.cend(); ++iter)
+	{
+		if ((*iter)->GetName() == itemName)
+		{
+			return *iter;
+		}
+	}
+
+	return nullptr;
+}
+
+Item* Room::RemoveItem(const std::string & itemName)
+{
+	for (vector<Item*>::iterator iter = m_items.begin(); iter != m_items.end(); ++iter)
+	{
+		if ((*iter)->GetName() == itemName)
+		{
+			m_items.erase(iter);
+			return *iter;
+		}
 	}
 
 	return nullptr;

@@ -3,6 +3,7 @@
 #include <sstream>
 #include "Game.h"
 #include "Exit.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -31,21 +32,32 @@ void Game::Initialize()
 {
 	//Create rooms
 	//1st floor rooms
-	m_playersRoom = new Room("Your room", "This is your room. It's a mess and you are pretty sure something has just blinked under your bed.");
-	m_upperHall = new Room("Upper hall", "This is the upper hall. There are 3 doors and stairs to lower floor.");
-	m_parentsRoom = new Room("Parents room", "Your daddy and mommy room. This is a forbidden sanctuary for you.");
-	m_bathroom = new Room("Bathroom", "A classic bathroom. Sink, toilet, shower...");
+	Room* m_playersRoom = new Room("Your room", "This is your room. It's a mess and you are pretty sure something has just blinked under your bed.");
+	m_rooms.push_back(m_playersRoom);
+	Room* m_upperHall = new Room("Upper hall", "This is the upper hall. There are 3 doors and stairs to lower floor.");
+	m_rooms.push_back(m_upperHall);
+	Room* m_parentsRoom = new Room("Parents room", "Your daddy and mommy room. This is a forbidden sanctuary for you.");
+	m_rooms.push_back(m_parentsRoom);
+	Room* m_bathroom = new Room("Bathroom", "A classic bathroom. Sink, toilet, shower... ");
+	m_rooms.push_back(m_bathroom);
 
 	//Main floor rooms
-	m_mainHall = new Room("Main hall", "The main hall of the house");
-	m_livingRoom = new Room("Living Room", "");
-	m_kitchen = new Room("Kitchen", "");
-	m_garage = new Room("Garage", "");
-	m_mainYard = new Room("Main Yard", "");
-	m_backYard = new Room("Back Yard", "");
+	Room* m_mainHall = new Room("Main hall", "The main hall of the house");
+	m_rooms.push_back(m_mainHall);
+	Room* m_livingRoom = new Room("Living Room", "");
+	m_rooms.push_back(m_livingRoom);
+	Room* m_kitchen = new Room("Kitchen", "");
+	m_rooms.push_back(m_kitchen);
+	Room* m_garage = new Room("Garage", "");
+	m_rooms.push_back(m_garage);
+	Room* m_mainYard = new Room("Main Yard", "");
+	m_rooms.push_back(m_mainYard);
+	Room* m_backYard = new Room("Back Yard", "");
+	m_rooms.push_back(m_backYard);
 
 	//Basement rooms
-	m_basement = new Room("Basement", "Dark, cold and terrifying. What are you doing here?");
+	Room* m_basement = new Room("Basement", "Dark, cold and terrifying. What are you doing here?");
+	m_rooms.push_back(m_basement);
 
 	//Room linking
 	m_playersRoom->AddExit(Room::Directions::South, m_upperHall, false, nullptr, "");
@@ -72,19 +84,34 @@ void Game::Initialize()
 
 	m_kitchen->AddExit(Room::Directions::North, m_livingRoom, false, nullptr, "");
 	m_kitchen->AddExit(Room::Directions::East, m_backYard, false, nullptr, "");
-	m_kitchen->AddExit(Room::Directions::Down, m_basement, true, nullptr, "The door to the basement is locked.");
+	m_kitchen->AddExit(Room::Directions::Down, m_basement, true, nullptr, "The door to the basement is locked. The lock seems old and rusty.");
 
 	m_backYard->AddExit(Room::Directions::West, m_kitchen, false, nullptr, "");
 
 	m_basement->AddExit(Room::Directions::Up, m_kitchen, false, nullptr, "");
+
+	//Items
+	Item* m_showerCurtain = new Item("Curtain", "A shower curtain. It has some colourful fishes painted on it. It seems a perfect cape.", true, true);
+	m_items.push_back(m_showerCurtain);
+
+	m_bathroom->AddItem(m_showerCurtain);
 
 	m_player = new Player("You", "This is you! A child, a hero, a monster, an explorer, a crusader.", m_playersRoom);
 }
 
 void Game::Finalize()
 {
-	delete(m_playersRoom);
 	delete(m_player);
+
+	for (auto& room : m_rooms)
+	{
+		delete(room);
+	}
+
+	for (auto& item : m_items)
+	{
+		delete(item);
+	}
 }
 
 void Game::Run()

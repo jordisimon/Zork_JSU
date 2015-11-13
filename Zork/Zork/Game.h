@@ -10,9 +10,26 @@ private:
 	bool playerQuit = false;
 
 	Player* m_player;
-	Room* m_room;
+
+	//1st floor rooms
+	Room* m_playersRoom;
+	Room* m_upperHall;
+	Room* m_parentsRoom;
+	Room* m_bathroom;
+
+	//Main floor rooms
+	Room* m_mainHall;
+	Room* m_livingRoom;
+	Room* m_kitchen;
+	Room* m_garage;
+	Room* m_mainYard;
+	Room* m_backYard;
+
+	//Basement rooms
+	Room* m_basement;
 
 	void WelcomePlayer() const;
+	void CheckPlayerWon();
 
 public:
 	Game();

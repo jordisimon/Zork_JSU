@@ -19,4 +19,6 @@ public:
 	bool IsLocked() const { return m_locked; } 
 	const std::string& GetLockedMessage() const { return m_lockedMessage; }
 	Room* GetDestinationRoom() const { return m_leadsTo; }
+
+	bool UnlockWith(Item* item);
 };

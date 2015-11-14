@@ -9,7 +9,7 @@ class Item;
 class Room : public Entity
 {
 public:
-	enum class Directions
+	enum class Direction
 	{
 		North = 0,
 		East,
@@ -20,14 +20,14 @@ public:
 		Total
 	};
 private:
-	std::array < Exit*, static_cast<size_t>(Directions::Total) > m_exits;
+	std::array < Exit*, static_cast<size_t>(Direction::Total) > m_exits;
 	std::vector <Item*> m_items;
 
 public:
 	Room(const std::string& name, const std::string& description) : 
 		Entity(name, description)
 	{
-		for (unsigned int i = 0; i < static_cast<unsigned int>(Directions::Total); ++i)
+		for (unsigned int i = 0; i < static_cast<unsigned int>(Direction::Total); ++i)
 		{
 			m_exits[i] = nullptr;
 		}
@@ -35,12 +35,17 @@ public:
 
 	virtual ~Room();
 
+	static Direction GetDirectionFromText(const std::string& text);
+	static const std::string GetTextFromDirection(Direction direction);
+
 	virtual void Describe() const;
 
-	void AddExit(Directions direction, Room* leadsTo, bool locked, Item* unlocksWith, const std::string& lockedMessage);
-	Room* GetRoom(Directions direction) const;
+	void AddExit(Direction direction, Room* leadsTo, bool locked, Item* unlocksWith, const std::string& lockedMessage);
+	Room* GetRoom(Direction direction) const;
 
 	void AddItem(Item* item);
 	Item* GetItem(const std::string& itemName) const;
 	Item* RemoveItem(const std::string& itemName);
+
+	bool UnlockDirectionWith(Direction direction, Item* item);
 };

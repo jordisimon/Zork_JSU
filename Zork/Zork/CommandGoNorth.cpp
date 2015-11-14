@@ -5,5 +5,5 @@
 
 void CommandGoNorth::Execute(const std::vector<std::string>& commands)
 {
-	m_player->Move(Room::Directions::North);
+	m_player->Move(Room::Direction::North);
 }

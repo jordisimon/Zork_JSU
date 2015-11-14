@@ -155,8 +155,11 @@
     <ClInclude Include="CommandGoSouth.h" />
     <ClInclude Include="CommandGoUp.h" />
     <ClInclude Include="CommandGoWest.h" />
+    <ClInclude Include="CommandInventory.h" />
     <ClInclude Include="CommandLook.h" />
     <ClInclude Include="CommandPick.h" />
+    <ClInclude Include="CommandUnlock.h" />
+    <ClInclude Include="CommandUse.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Game.h" />
@@ -175,10 +178,15 @@
     <ClCompile Include="CommandGoSouth.cpp" />
     <ClCompile Include="CommandGoUp.cpp" />
     <ClCompile Include="CommandGoWest.cpp" />
+    <ClCompile Include="CommandInventory.cpp" />
     <ClCompile Include="CommandLook.cpp" />
     <ClCompile Include="CommandPick.cpp" />
+    <ClCompile Include="CommandUnlock.cpp" />
+    <ClCompile Include="CommandUse.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">

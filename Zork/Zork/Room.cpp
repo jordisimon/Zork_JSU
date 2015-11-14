@@ -7,10 +7,61 @@ using namespace std;
 
 Room::~Room()
 {
-	for (unsigned int i = 0; i < static_cast<unsigned int>(Directions::Total); ++i)
+	for (unsigned int i = 0; i < static_cast<unsigned int>(Direction::Total); ++i)
 	{
 		if (m_exits[i] != nullptr)
 			delete (m_exits[i]);
+	}
+}
+
+Room::Direction Room::GetDirectionFromText(const std::string& text)
+{
+	if		(text == "n" || text == "N" || text == "north")
+		return Direction::North;
+	else if (text == "s" || text == "S" || text == "south")
+		return Direction::South;
+	else if (text == "e" || text == "E" || text == "east")
+		return Direction::East;
+	else if (text == "w" || text == "W" || text == "west")
+		return Direction::West;
+	else if (text == "u" || text == "U" || text == "up")
+		return Direction::Up;
+	else if (text == "d" || text == "D" || text == "down")
+		return Direction::Down;
+	else
+		return Direction::Total;
+}
+
+const std::string Room::GetTextFromDirection(Direction direction)
+{
+	switch (direction)
+	{
+	case Direction::North:
+		return "north";
+		break;
+
+	case Direction::South:
+		return "south";
+		break;
+
+	case Direction::East:
+		return "east";
+		break;
+
+	case Direction::West:
+		return "west";
+		break;
+
+	case Direction::Up:
+		return "up";
+		break;
+
+	case Direction::Down:
+		return "down";
+		break;
+
+	default:
+		return "unknown";
 	}
 }
 
@@ -29,12 +80,12 @@ void Room::Describe() const
 	}
 }
 
-void Room::AddExit(Directions direction, Room * leadsTo, bool locked, Item * unlocksWith, const std::string & lockedMessage)
+void Room::AddExit(Direction direction, Room * leadsTo, bool locked, Item * unlocksWith, const std::string & lockedMessage)
 {
 	m_exits[static_cast<unsigned int>(direction)] = new Exit(leadsTo, locked, unlocksWith, lockedMessage);
 }
 
-Room* Room::GetRoom(Directions direction) const
+Room* Room::GetRoom(Direction direction) const
 {
 	Exit* exit = m_exits[static_cast<unsigned int>(direction)];
 
@@ -85,4 +136,14 @@ Item* Room::RemoveItem(const std::string & itemName)
 	}
 
 	return nullptr;
+}
+
+bool Room::UnlockDirectionWith(Direction direction, Item * item)
+{
+	if (m_exits[static_cast<unsigned int>(direction)] != nullptr)
+	{
+		return m_exits[static_cast<unsigned int>(direction)]->UnlockWith(item);
+	}
+	else 
+		return false;
 }

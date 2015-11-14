@@ -5,5 +5,5 @@
 
 void CommandGoDown::Execute(const std::vector<std::string>& commands)
 {
-	m_player->Move(Room::Directions::Down);
+	m_player->Move(Room::Direction::Down);
 }

@@ -4,20 +4,19 @@
 
 #include "Player.h"
 #include "Item.h"
+#include "Character.h"
 
 using namespace std;
 
 Item * Player::GetItem(const std::string & itemName, bool searchInventory, bool searchRoom) const
 {
+	//first we search item in inventory
 	if (searchInventory)
-	{
-		//first we search item in inventory
-		for (auto& item : m_inventory)
+	{		
+		Item* item = Entity::GetItem(itemName);
+		if (item != nullptr)
 		{
-			if (item->GetName() == itemName)
-			{
-				return item;
-			}
+			return item;
 		}
 	}
 
@@ -35,6 +34,11 @@ Item * Player::GetItem(const std::string & itemName, bool searchInventory, bool 
 	return nullptr;
 }
 
+void Player::Quit()
+{
+	m_quit = true;
+}
+
 void Player::Look() const
 {	
 	m_currentRoom->Describe();
@@ -44,9 +48,9 @@ void Player::Inventory() const
 {
 	cout << "Lets see what you have:" << endl;
 
-	if (m_inventory.size() > 0)
+	if (m_items.size() > 0)
 	{
-		for (auto& item : m_inventory)
+		for (auto& item : m_items)
 		{
 			cout << item->GetName() << endl;
 		}
@@ -73,7 +77,6 @@ void Player::Move(Room::Direction direction)
 void Player::Examine(const string& itemName) const
 {
 	Item* item = GetItem(itemName, true, true);
-
 	if (item != nullptr)
 	{
 		item->Describe();
@@ -87,7 +90,7 @@ void Player::Pick(const string& itemName)
 	{
 		if (item->IsPickable())
 		{
-			m_inventory.push_back(item);
+			AddItem(item);
 			m_currentRoom->RemoveItem(itemName);
 			cout << item->GetName() << " taken." << endl << endl;
 		}
@@ -108,7 +111,7 @@ void Player::Pick(const string& itemName, const string& itemFromName)
 		{
 			if (item->IsPickable())
 			{
-				m_inventory.push_back(item);
+				AddItem(item);
 				containerItem->RemoveItem(itemName);
 				cout << item->GetName() << " taken." << endl << endl;
 			}
@@ -124,21 +127,19 @@ void Player::Pick(const string& itemName, const string& itemFromName)
 	}
 }
 
-void Player::Drop(const string & itemName)
+void Player::Drop(const string& itemName)
 {
-	for (vector<Item*>::iterator iter = m_inventory.begin(); iter != m_inventory.end(); ++iter)
-	{
-		if ((*iter)->GetName() == itemName)
-		{
-			Item* item = (*iter);
-			m_currentRoom->AddItem(item);
-			m_inventory.erase(iter);
-			cout << item->GetName() << " dropped." << endl << endl;
-			return;
-		}
-	}
+	Item* item = RemoveItem(itemName);
 
-	cout << "Mmm... " << itemName <<" is not in your inventory." << endl << endl;
+	if (item != nullptr)
+	{
+		m_currentRoom->AddItem(item);
+		cout << item->GetName() << " dropped." << endl << endl;
+	}
+	else
+	{
+		cout << "Mmm... " << itemName << " is not in your inventory." << endl << endl;
+	}
 }
 
 void Player::Unlock(const string& directionTxt, const string& itemName)
@@ -158,14 +159,7 @@ void Player::Unlock(const string& directionTxt, const string& itemName)
 		{
 			if (m_currentRoom->UnlockDirectionWith(direction, item))
 			{
-				for (vector<Item*>::iterator iter = m_inventory.begin(); iter != m_inventory.end(); ++iter)
-				{
-					if ((*iter)->GetName() == itemName)
-					{
-						m_inventory.erase(iter);
-						break;
-					}
-				}
+				RemoveItem(itemName);
 				cout << "Unlocked!" << endl << endl;
 			}
 			else
@@ -176,7 +170,7 @@ void Player::Unlock(const string& directionTxt, const string& itemName)
 	}
 }
 
-void Player::Use(const string & toolItemName, const string & itemName)
+void Player::Use(const string& toolItemName, const string& itemName)
 {
 	Item* tool = GetItem(toolItemName, true, false);
 	if (tool != nullptr)
@@ -188,15 +182,8 @@ void Player::Use(const string & toolItemName, const string & itemName)
 			//Check if item changed
 			if (result != item)
 			{
-				for (vector<Item*>::iterator iter = m_inventory.begin(); iter != m_inventory.end(); ++iter)
-				{
-					if ((*iter)->GetName() == itemName)
-					{
-						m_inventory.erase(iter);
-						break;
-					}
-				}
-				m_inventory.push_back(result);
+				RemoveItem(itemName);
+				AddItem(result);
 				cout << "Uooooohhh!!! You got a " << result->GetName() << "!" << endl << endl;
 			}
 			else
@@ -204,5 +191,24 @@ void Player::Use(const string & toolItemName, const string & itemName)
 				cout << "It has no effect." << endl << endl;
 			}
 		}
+	}
+}
+
+void Player::Talk(const string& characterName)
+{
+	Character* character = m_currentRoom->GetCharacter(characterName);
+
+	if (character != nullptr)
+	{
+		Item* item = character->Talk(m_items);
+		if (item != nullptr)
+		{
+			cout << "You get " << item->GetName() << " from " << characterName << "!" << endl << endl;
+			AddItem(item);
+		}
+	}
+	else
+	{
+		cout << "There is no one called " << characterName << " here." << endl << endl;
 	}
 }

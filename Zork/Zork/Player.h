@@ -1,22 +1,28 @@
 #pragma once
 
 #include <vector>
-#include "Character.h"
+#include "Entity.h"
 #include "Room.h"
 
-class Player : public Character
+class Player : public Entity
 {
 private:
+	bool m_quit;
 	Room* m_currentRoom;
-	std::vector<Item*> m_inventory;
 
 	Item* GetItem(const std::string& itemName, bool searchInventory, bool searchRoom) const;
 
 public:
 	Player(const std::string& name, const std::string& description, Room* currentRoom) :
-		Character(name, description), m_currentRoom{ currentRoom }
+		Entity(name, description), m_currentRoom{ currentRoom }, m_quit { false }
 	{}
 
+	virtual ~Player() {}
+
+	bool GetPlayerQuit() const { return m_quit; }
+	Room* GetCurrentRoom() const { return m_currentRoom; }
+
+	void Quit();
 	void Look() const;
 	void Inventory() const;
 	void Move(Room::Direction direction);
@@ -26,4 +32,5 @@ public:
 	void Drop(const std::string& itemName);
 	void Unlock(const std::string& directionTxt, const std::string& itemName);
 	void Use(const std::string& toolItemName, const std::string& itemName);
+	void Talk(const std::string& characterName);
 };

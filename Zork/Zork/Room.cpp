@@ -2,6 +2,7 @@
 #include "Room.h"
 #include "Exit.h"
 #include "Item.h"
+#include "Character.h"
 
 using namespace std;
 
@@ -78,6 +79,16 @@ void Room::Describe() const
 		}
 		cout << endl;
 	}
+
+	if (m_characters.size() > 0)
+	{
+		cout << "There is someone in the room: " << endl;
+		for (auto& character : m_characters)
+		{
+			cout << character->GetName() << endl;
+		}
+		cout << endl;
+	}
 }
 
 void Room::AddExit(Direction direction, Room * leadsTo, bool locked, Item * unlocksWith, const std::string & lockedMessage)
@@ -105,39 +116,6 @@ Room* Room::GetRoom(Direction direction) const
 	return nullptr;
 }
 
-void Room::AddItem(Item * item)
-{
-	m_items.push_back(item);
-}
-
-Item * Room::GetItem(const std::string & itemName) const
-{
-	for (vector<Item*>::const_iterator iter = m_items.cbegin(); iter != m_items.cend(); ++iter)
-	{
-		if ((*iter)->GetName() == itemName)
-		{
-			return *iter;
-		}
-	}
-
-	return nullptr;
-}
-
-Item* Room::RemoveItem(const std::string & itemName)
-{
-	for (vector<Item*>::iterator iter = m_items.begin(); iter != m_items.end(); ++iter)
-	{
-		if ((*iter)->GetName() == itemName)
-		{
-			Item* result = *iter;
-			m_items.erase(iter);
-			return result;
-		}
-	}
-
-	return nullptr;
-}
-
 bool Room::UnlockDirectionWith(Direction direction, Item * item)
 {
 	if (m_exits[static_cast<unsigned int>(direction)] != nullptr)
@@ -146,4 +124,22 @@ bool Room::UnlockDirectionWith(Direction direction, Item * item)
 	}
 	else 
 		return false;
+}
+
+void Room::AddCharacter(Character* character)
+{
+	m_characters.push_back(character);
+}
+
+Character* Room::GetCharacter(const string& characterName) const
+{
+	for (vector<Character*>::const_iterator iter = m_characters.cbegin(); iter != m_characters.cend(); ++iter)
+	{
+		if ((*iter)->GetName() == characterName)
+		{
+			return *iter;
+		}
+	}
+
+	return nullptr;
 }

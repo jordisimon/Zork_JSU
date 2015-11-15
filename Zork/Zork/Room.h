@@ -5,6 +5,7 @@
 
 class Exit;
 class Item;
+class Character;
 
 class Room : public Entity
 {
@@ -21,7 +22,7 @@ public:
 	};
 private:
 	std::array < Exit*, static_cast<size_t>(Direction::Total) > m_exits;
-	std::vector <Item*> m_items;
+	std::vector<Character*> m_characters;
 
 public:
 	Room(const std::string& name, const std::string& description) : 
@@ -42,10 +43,8 @@ public:
 
 	void AddExit(Direction direction, Room* leadsTo, bool locked, Item* unlocksWith, const std::string& lockedMessage);
 	Room* GetRoom(Direction direction) const;
-
-	void AddItem(Item* item);
-	Item* GetItem(const std::string& itemName) const;
-	Item* RemoveItem(const std::string& itemName);
-
 	bool UnlockDirectionWith(Direction direction, Item* item);
+
+	void AddCharacter(Character* character);
+	Character* GetCharacter(const std::string& characterName) const;
 };

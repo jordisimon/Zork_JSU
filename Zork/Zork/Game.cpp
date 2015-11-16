@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <sstream>
+#include "Tools.h"
 #include "Game.h"
 #include "Exit.h"
 #include "Item.h"
@@ -60,6 +61,7 @@ void Game::ParseCommand(const std::string & playerInput) const
 	if (commands.size() > 0)
 	{
 		string word = commands[0];
+		ToLowerCase(word);
 
 		CommandsMap::const_iterator command = m_commands.find(word);
 		if (command != m_commands.end())
@@ -73,9 +75,9 @@ void Game::ParseCommand(const std::string & playerInput) const
 	}
 }
 
-void Game::CheckPlayerWon()
+bool Game::PlayerWon()
 {
-	playerWon = (m_player->GetCurrentRoom() == m_winningRoom);
+	return (m_player->GetCurrentRoom() == m_winningRoom);
 }
 
 
@@ -236,21 +238,21 @@ void Game::Initialize()
 	/*************************************
 	**** Commands ************************
 	**************************************/
-	ManageNewCommand(new CommandQuit(m_player), "q Q quit exit leave fuckyou Quit Exit Leave FuckYou");
-	ManageNewCommand(new CommandGoNorth(m_player), "n N north North");
-	ManageNewCommand(new CommandGoSouth(m_player), "s S south South");
-	ManageNewCommand(new CommandGoEast(m_player), "e E east East");
-	ManageNewCommand(new CommandGoWest(m_player), "w W west West");
-	ManageNewCommand(new CommandGoUp(m_player), "u U up Up");
-	ManageNewCommand(new CommandGoDown(m_player), "d D down Down");
-	ManageNewCommand(new CommandLook(m_player), "l L look Look");
-	ManageNewCommand(new CommandExamine(m_player), "ex EX examine Examine in IN inspect Inspect");
-	ManageNewCommand(new CommandPick(m_player), "p P pick Pick t T take Take");
-	ManageNewCommand(new CommandDrop(m_player), "dr DR drop Drop");
-	ManageNewCommand(new CommandUnlock(m_player), "un UN unlock Unlock");
-	ManageNewCommand(new CommandUse(m_player), "use Use");
-	ManageNewCommand(new CommandInventory(m_player), "i I inventory Inventory");
-	ManageNewCommand(new CommandTalk(m_player), "ta TA talk Talk sp SP speak Speak");
+	ManageNewCommand(new CommandQuit(m_player), "q quit exit leave fuckyou");
+	ManageNewCommand(new CommandGoNorth(m_player), "n north");
+	ManageNewCommand(new CommandGoSouth(m_player), "s south");
+	ManageNewCommand(new CommandGoEast(m_player), "e east");
+	ManageNewCommand(new CommandGoWest(m_player), "w west");
+	ManageNewCommand(new CommandGoUp(m_player), "u up");
+	ManageNewCommand(new CommandGoDown(m_player), "d down");
+	ManageNewCommand(new CommandLook(m_player), "l look");
+	ManageNewCommand(new CommandExamine(m_player), "ex examine in inspect");
+	ManageNewCommand(new CommandPick(m_player), "p pick t take");
+	ManageNewCommand(new CommandDrop(m_player), "dr drop");
+	ManageNewCommand(new CommandUnlock(m_player), "un unlock");
+	ManageNewCommand(new CommandUse(m_player), "use");
+	ManageNewCommand(new CommandInventory(m_player), "i inventory");
+	ManageNewCommand(new CommandTalk(m_player), "ta talk sp speak");
 }
 
 Room* Game::CreateNewRoom(const string & name, const string & description)
@@ -310,6 +312,7 @@ void Game::Finalize()
 
 void Game::Run()
 {
+	bool playerWon = false;
 
 	WelcomePlayer();
 	m_player->Look();
@@ -321,8 +324,7 @@ void Game::Run()
 		cout << endl;
 
 		ParseCommand(input);
-
-		CheckPlayerWon();
+		playerWon = PlayerWon();
 	}
 
 	if (playerWon)

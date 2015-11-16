@@ -1,0 +1,44 @@
+﻿Build started 16/11/2015 14:47:29.
+     1>Project "D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Zork\Zork.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Release\Zork.pch" /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Mom.cpp Player.cpp
+         Mom.cpp
+         Player.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Release\Zork.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Release\Zork.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Release\Zork.lib" /MACHINE:X86 /SAFESEH Release\CommandDrop.obj
+         Release\CommandExamine.obj
+         Release\CommandGoDown.obj
+         Release\CommandGoEast.obj
+         Release\CommandGoNorth.obj
+         Release\CommandGoSouth.obj
+         Release\CommandGoUp.obj
+         Release\CommandGoWest.obj
+         Release\CommandInventory.obj
+         Release\CommandLook.obj
+         Release\CommandPick.obj
+         Release\CommandQuit.obj
+         Release\CommandTalk.obj
+         Release\CommandUnlock.obj
+         Release\CommandUse.obj
+         Release\Dad.obj
+         Release\Entity.obj
+         Release\Exit.obj
+         Release\Game.obj
+         Release\Item.obj
+         Release\Mom.obj
+         Release\Player.obj
+         Release\Room.obj
+         Release\stdafx.obj
+         Release\Tools.obj
+         Release\Zork.obj
+         Generating code
+         8 of 885 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+           0 functions were new in current compilation
+           7 functions had inline decision re-evaluated but remain unchanged
+         Finished generating code
+         Zork.vcxproj -> D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Release\Zork.exe
+     1>Done Building Project "D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Zork\Zork.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.86

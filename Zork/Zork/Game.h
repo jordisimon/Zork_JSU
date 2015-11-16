@@ -13,9 +13,6 @@
 class Game
 {
 private:
-	bool playerWon = false;
-	bool playerQuit = false;
-
 	Player* m_player;
 	Room* m_winningRoom;
 
@@ -33,7 +30,7 @@ private:
 
 	void WelcomePlayer() const;
 	void ParseCommand(const std::string& input) const;
-	void CheckPlayerWon();
+	bool PlayerWon();
 
 public:
 	Game();

@@ -11,7 +11,7 @@ Item* Dad::Talk(std::vector<Item*>& items)
 		cout << "Hi son! How are you doing tonight?" << endl;
 		cout << "Take this, it can be useful at some point." << endl << endl;
 		Item* item = m_items[0];
-		RemoveItem(item->GetName());
+		RemoveItem(item);
 		return item;
 	}
 	else

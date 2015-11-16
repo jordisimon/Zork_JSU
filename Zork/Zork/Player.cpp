@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Item * Player::GetItem(const std::string & itemName, bool searchInventory, bool searchRoom) const
+Item* Player::GetItem(const string& itemName, bool searchInventory, bool searchRoom) const
 {
 	//first we search item in inventory
 	if (searchInventory)
@@ -91,7 +91,7 @@ void Player::Pick(const string& itemName)
 		if (item->IsPickable())
 		{
 			AddItem(item);
-			m_currentRoom->RemoveItem(itemName);
+			m_currentRoom->RemoveItem(item);
 			cout << item->GetName() << " taken." << endl << endl;
 		}
 		else
@@ -112,7 +112,7 @@ void Player::Pick(const string& itemName, const string& itemFromName)
 			if (item->IsPickable())
 			{
 				AddItem(item);
-				containerItem->RemoveItem(itemName);
+				containerItem->RemoveItem(item);
 				cout << item->GetName() << " taken." << endl << endl;
 			}
 			else
@@ -159,7 +159,7 @@ void Player::Unlock(const string& directionTxt, const string& itemName)
 		{
 			if (m_currentRoom->UnlockDirectionWith(direction, item))
 			{
-				RemoveItem(itemName);
+				RemoveItem(item);
 				cout << "Unlocked!" << endl << endl;
 			}
 			else
@@ -182,7 +182,7 @@ void Player::Use(const string& toolItemName, const string& itemName)
 			//Check if item changed
 			if (result != item)
 			{
-				RemoveItem(itemName);
+				RemoveItem(item);
 				AddItem(result);
 				cout << "Uooooohhh!!! You got a " << result->GetName() << "!" << endl << endl;
 			}

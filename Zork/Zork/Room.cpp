@@ -15,25 +15,28 @@ Room::~Room()
 	}
 }
 
-Room::Direction Room::GetDirectionFromText(const std::string& text)
+Room::Direction Room::GetDirectionFromText(const string& text)
 {
-	if		(text == "n" || text == "N" || text == "north")
+	string lcText = text;
+	ToLowerCase(lcText);
+
+	if		(lcText == "n" || lcText == "north")
 		return Direction::North;
-	else if (text == "s" || text == "S" || text == "south")
+	else if (lcText == "s" || lcText == "south")
 		return Direction::South;
-	else if (text == "e" || text == "E" || text == "east")
+	else if (lcText == "e" || lcText == "east")
 		return Direction::East;
-	else if (text == "w" || text == "W" || text == "west")
+	else if (lcText == "w" || lcText == "west")
 		return Direction::West;
-	else if (text == "u" || text == "U" || text == "up")
+	else if (lcText == "u" || lcText == "up")
 		return Direction::Up;
-	else if (text == "d" || text == "D" || text == "down")
+	else if (lcText == "d" || lcText == "down")
 		return Direction::Down;
 	else
 		return Direction::Total;
 }
 
-const std::string Room::GetTextFromDirection(Direction direction)
+const string Room::GetTextFromDirection(Direction direction)
 {
 	switch (direction)
 	{
@@ -72,7 +75,7 @@ void Room::Describe() const
 
 	if (m_items.size() > 0)
 	{
-		cout << "You also can see " << endl;
+		cout << "You also can see: " << endl;
 		for (auto& item : m_items)
 		{
 			cout << item->GetName() << endl;
@@ -91,7 +94,7 @@ void Room::Describe() const
 	}
 }
 
-void Room::AddExit(Direction direction, Room * leadsTo, bool locked, Item * unlocksWith, const std::string & lockedMessage)
+void Room::AddExit(Direction direction, Room* leadsTo, bool locked, Item* unlocksWith, const string& lockedMessage)
 {
 	m_exits[static_cast<unsigned int>(direction)] = new Exit(leadsTo, locked, unlocksWith, lockedMessage);
 }
@@ -116,7 +119,7 @@ Room* Room::GetRoom(Direction direction) const
 	return nullptr;
 }
 
-bool Room::UnlockDirectionWith(Direction direction, Item * item)
+bool Room::UnlockDirectionWith(Direction direction, Item* item)
 {
 	if (m_exits[static_cast<unsigned int>(direction)] != nullptr)
 	{
@@ -133,9 +136,12 @@ void Room::AddCharacter(Character* character)
 
 Character* Room::GetCharacter(const string& characterName) const
 {
+	string lcCharacterName = characterName;
+	ToLowerCase(lcCharacterName);
+
 	for (vector<Character*>::const_iterator iter = m_characters.cbegin(); iter != m_characters.cend(); ++iter)
 	{
-		if ((*iter)->GetName() == characterName)
+		if ((*iter)->GetLowerCaseName() == lcCharacterName)
 		{
 			return *iter;
 		}

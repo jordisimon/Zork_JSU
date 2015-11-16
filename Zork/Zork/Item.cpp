@@ -10,7 +10,7 @@ void Item::Describe() const
 
 	if (m_items.size() > 0)
 	{
-		cout << "You also can see " << endl;
+		cout << "There is something inside " << endl;
 		for (auto& item : m_items)
 		{
 			cout << item->GetName() << endl;

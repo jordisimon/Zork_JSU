@@ -10,16 +10,19 @@ void Entity::Describe() const
 	cout << m_description << endl << endl;
 }
 
-void Entity::AddItem(Item * item)
+void Entity::AddItem(Item* item)
 {
 	m_items.push_back(item);
 }
 
-Item* Entity::GetItem(const string & itemName) const
+Item* Entity::GetItem(const string& itemName) const
 {
+	string lcItemName = itemName;
+	ToLowerCase(lcItemName);
+
 	for (vector<Item*>::const_iterator iter = m_items.cbegin(); iter != m_items.cend(); ++iter)
 	{
-		if ((*iter)->GetName() == itemName)
+		if ((*iter)->GetLowerCaseName() == lcItemName)
 		{
 			return *iter;
 		}
@@ -28,11 +31,14 @@ Item* Entity::GetItem(const string & itemName) const
 	return nullptr;
 }
 
-Item* Entity::RemoveItem(const string & itemName)
+Item* Entity::RemoveItem(const string& itemName)
 {
+	string lcItemName = itemName;
+	ToLowerCase(lcItemName);
+
 	for (vector<Item*>::iterator iter = m_items.begin(); iter != m_items.end(); ++iter)
 	{
-		if ((*iter)->GetName() == itemName)
+		if ((*iter)->GetLowerCaseName() == lcItemName)
 		{
 			Item* result = *iter;
 			m_items.erase(iter);
@@ -41,4 +47,16 @@ Item* Entity::RemoveItem(const string & itemName)
 	}
 
 	return nullptr;
+}
+
+void Entity::RemoveItem(Item* item)
+{
+	for (vector<Item*>::iterator iter = m_items.begin(); iter != m_items.end(); ++iter)
+	{
+		if ((*iter) == item)
+		{
+			m_items.erase(iter);
+			break;
+		}
+	}
 }

@@ -43,7 +43,7 @@ Item* Mom::Talk(vector<Item*>& items)
 			cout << "Take this and go to get candies." << endl << endl;
 
 			Item* item = m_items[0];
-			RemoveItem(item->GetName());
+			RemoveItem(item);
 			return item;
 		}
 		else

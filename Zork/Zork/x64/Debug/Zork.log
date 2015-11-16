@@ -1,0 +1,65 @@
+﻿Build started 15/11/2015 19:56:28.
+     1>Project "D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Zork\Zork.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\Zork.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\Zork.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt CommandDrop.cpp CommandExamine.cpp CommandGoDown.cpp CommandGoEast.cpp CommandGoNorth.cpp CommandGoSouth.cpp CommandGoUp.cpp CommandGoWest.cpp CommandInventory.cpp CommandLook.cpp CommandPick.cpp CommandQuit.cpp CommandTalk.cpp CommandUnlock.cpp CommandUse.cpp Dad.cpp Entity.cpp Exit.cpp Game.cpp Item.cpp Mom.cpp Player.cpp Room.cpp Zork.cpp
+         Zork.cpp
+         Room.cpp
+         Player.cpp
+         Mom.cpp
+         Item.cpp
+         Game.cpp
+         Exit.cpp
+         Entity.cpp
+         Dad.cpp
+         CommandUse.cpp
+         CommandUnlock.cpp
+         CommandTalk.cpp
+         CommandQuit.cpp
+         CommandPick.cpp
+         CommandLook.cpp
+         CommandInventory.cpp
+         CommandGoWest.cpp
+         CommandGoUp.cpp
+         CommandGoSouth.cpp
+         CommandGoNorth.cpp
+         Generating Code...
+         Compiling...
+         CommandGoEast.cpp
+         CommandGoDown.cpp
+         CommandExamine.cpp
+         CommandDrop.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\x64\Debug\Zork.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\x64\Debug\Zork.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\x64\Debug\Zork.lib" /MACHINE:X64 x64\Debug\CommandDrop.obj
+         x64\Debug\CommandExamine.obj
+         x64\Debug\CommandGoDown.obj
+         x64\Debug\CommandGoEast.obj
+         x64\Debug\CommandGoNorth.obj
+         x64\Debug\CommandGoSouth.obj
+         x64\Debug\CommandGoUp.obj
+         x64\Debug\CommandGoWest.obj
+         x64\Debug\CommandInventory.obj
+         x64\Debug\CommandLook.obj
+         x64\Debug\CommandPick.obj
+         x64\Debug\CommandQuit.obj
+         x64\Debug\CommandTalk.obj
+         x64\Debug\CommandUnlock.obj
+         x64\Debug\CommandUse.obj
+         x64\Debug\Dad.obj
+         x64\Debug\Entity.obj
+         x64\Debug\Exit.obj
+         x64\Debug\Game.obj
+         x64\Debug\Item.obj
+         x64\Debug\Mom.obj
+         x64\Debug\Player.obj
+         x64\Debug\Room.obj
+         x64\Debug\stdafx.obj
+         x64\Debug\Zork.obj
+         Zork.vcxproj -> D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\x64\Debug\Zork.exe
+     1>Done Building Project "D:\DRIVE\ESTUDIS\Master\ASSIGNATURES\05- PROGRAMACIO\ZORK\Zork\Zork_JSU\Zork\Zork\Zork.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.42

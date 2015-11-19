@@ -9,7 +9,7 @@ Item* Dad::Talk(std::vector<Item*>& items)
 	if (m_items.size() > 0)
 	{
 		cout << "Hi son! How are you doing tonight?" << endl;
-		cout << "Take this, it can be useful at some point." << endl << endl;
+		cout << "It's dangerous to go alone! Take this." << endl << endl;
 		Item* item = m_items[0];
 		RemoveItem(item);
 		return item;
